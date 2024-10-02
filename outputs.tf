@@ -8,6 +8,11 @@ output "catapp_ip" {
 }
 
 
-output "resource_count" {
-  value = length(data.terraform_remote_state.example.outputs.resources)
+output "managed_resource_count" {
+  description = "The total number of managed resources in the current Terraform state."
+
+  value = length([
+    for resource in terraform.state.resources : resource
+    if resource.mode == "managed"
+  ])
 }
