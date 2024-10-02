@@ -8,11 +8,3 @@ output "catapp_ip" {
 }
 
 
-output "managed_resource_count" {
-  description = "The total number of managed resources in the current Terraform state."
-
-  value = length([
-    for resource in terraform.workspace : resource
-    if resource.mode == "managed"
-  ])
-}
